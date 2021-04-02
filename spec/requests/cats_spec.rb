@@ -108,4 +108,33 @@ RSpec.describe "Cats", type: :request do
       expect(response).to have_http_status(422)
     end
   end
+
+  describe 'PATCH /cats/:id' do
+    it 'updates a cat' do
+      cat_params1 = {
+        cat: {
+          name:'Stitch',
+          age:1,
+          enjoys:'knocking things off the counter',
+          profile_pic:'pic.png',
+        }
+      }
+      cat_params2 = {
+        cat: {
+          name:'Lilo',
+          age:1,
+          enjoys:'knocking things off the counter',
+          profile_pic:'pic.png',
+        }
+      }
+
+      post '/cats', params: cat_params1
+      patch '/cats/1', params: cat_params2
+
+      cat = Cat.first
+      expect(cat.name).to eq 'Lilo'
+      cat_response = JSON.parse(response.body).first
+      expect(cat_response['name']).to eq 'Lilo'
+    end
+  end
 end
