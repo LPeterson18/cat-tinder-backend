@@ -9,6 +9,11 @@ class CatsController < ApplicationController
     render json: cat.valid? ? cat : cat.errors, status: 422
   end
 
+  def update
+    cat = Cat.update(cat_params)
+    render json: cat
+  end
+
   private
   def cat_params
     params.require(:cat).permit(:name, :age, :enjoys, :profile_pic)
