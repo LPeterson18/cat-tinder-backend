@@ -6,7 +6,11 @@ class CatsController < ApplicationController
 
   def create
     cat = Cat.create(cat_params)
-    render json: cat.valid? ? cat : cat.errors, status: 422
+    if cat.valid?
+      render json: cat
+    else
+      render json: cat.errors, status: 422
+    end
   end
 
   def update
