@@ -133,8 +133,7 @@ RSpec.describe "Cats", type: :request do
 
       cat = Cat.first
       expect(cat.name).to eq 'Lilo'
-      cat_response = JSON.parse(response.body)
-      byebug
+      cat_response = JSON.parse(response.body).first
       expect(cat_response['name']).to eq 'Lilo'
     end
   end
