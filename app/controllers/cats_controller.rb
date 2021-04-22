@@ -18,6 +18,15 @@ class CatsController < ApplicationController
     render json: cat
   end
 
+  def destroy
+    cat = Cat.find(params[:id])
+    if cat.destroy
+      render json: cat
+    else
+      render json: cat.errors, status: 422
+    end
+  end
+
   private
   def cat_params
     params.require(:cat).permit(:name, :age, :enjoys, :profile_pic)
